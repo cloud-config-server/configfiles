@@ -1,0 +1,207 @@
+npm  node pakage managarer
+node -  node.js complile
+npm install -g @angular/cli - comand line interface. it will run and build the angular application 
+ng version - ng angular cli short form
+
+
+package.json having all the depency for build, have 2 set on dependency and dev dependency , depency will build, dev dependecy for development
+angular.json having all the details which it load for ng serve.
+once ng serve the angular will check all details in angular.js and it will index, mail pages
+main.ts this first angular code will start execute and find the boostrub module platformBrowserDynamic().bootstrapModule(AppModule)
+when app module load in will  check all complontent and it will ready load, and it has boost section it will load app component in ui, which component you want loas 
+you can add in boost selection , so app module will load that component
+tslint.json having all editor error set up
+ng update @angular/cli @angular/core - update old version into new angular 8
+
+ng g c product-add --skipTests=true --  generate the components
+
+ng g m uppiTest
+ng g c compOne 
+ng g d testcolor
+ng g service dataService
+ng g c testService
+ng generate module app-routing
+ERROR RangeError: Maximum call stack size exceeded - when we use same selector in same html component in will load mulitpule times
+
+add user module a main module, need boostup enty and add browermoudle on import
+ add 2 components in imports vise versa, will complile and throw an error server listner issue
+ 
+ 
+ https://www.fullstack.cafe/blog/angular-8-interview-questions
+ 
+ 
+ 
+ 
+ 
+ 
+ Strucural directive Sugar directive--- it will change the element 
+ start with *
+*inIf  - it will work with an element
+*ngFor = it will work on the element
+
+The browser won't display an <option> within a <span>. -  we can use ng-container for user condtions on select element
+The <ng-container> is a syntax element recognized by the Angular parser. It's not a directive, component, class, or interface. It's more like the curly braces in a JavaScript if-block:
+
+ 
+ 
+ Absurble
+ subject - will work n times  -  it will work both components on intillizatioin 
+ JBehaviorSubject - just load data n+1 times
+ 
+ 
+ 
+ routs
+ eggarly loading
+ lagy loding
+ authincate  - implements activate
+ canactivate(service) - routgard and u=auth service
+ preload concept :  egarly loding again loading backgroud to avoid times
+ 
+ interceptor
+ httpgetclient
+ 
+ 
+ The method is called forRoot() because you configure the router at the application's root level. The forRoot() method supplies the service providers and directives needed for routing, and performs the initial navigation based on the current browser URL.
+ 
+ 
+ A routerLink attribute is set to "/heroes", the string that the router matches to the route to HeroesComponent. The routerLink is the selector for the RouterLink directive that turns user clicks into router navigations. It's another of the public directives in the RouterModule.
+ 
+ 
+ You can retrieve the parameter from the URL path using the ActivatedRoute service which is available from the @angular/router package.
+ --this.activatedRoute.snapshot.params['id'] - get the id from route url - home/123
+ 
+ private activatedRoute: ActivatedRoute - services 
+ 
+ ng generate guard login create guard by implementing canActive interface and implementing canactivate() method
+ 
+ forroot - egarly loading
+ forchild - lazy loding - create new module with component and routes - this module will give app rout module to load child by using
+  { path: 'home',loadChildren: () => import('./../left-panel/left-panel.module').
+  then(m => m.LeftPanelModule)},
+ <li><a [routerLink]="['/home']">Home</a></li>
+ 
+<router-outlet></router-outlet> will use this 2 things for enable the route for all the components
+create component and add rotues constant - constant routes:Routes=[{path='',component=''}]
+and impoert routermodule.forRoot(constans)
+and expoets routermoudle
+
+preload concept:
+
+RouterModule.forRoot([
+  …
+], {
+  preloadingStrategy: PreloadAllModules
+})
+//
+
+
+loader tag:  <router-outlet>
+  <span class="loader" *ngIf="loading"></span>
+</router-outlet>
+
+export class AppComponent {
+  loading: boolean;
+  constructor(router: Router) {
+    this.loading = false;
+    router.events.subscribe(
+      (event: RouterEvent): void => {
+        if (event instanceof NavigationStart) {
+          this.loading = true;
+        } else if (event instanceof NavigationEnd) {
+          this.loading = false;
+        }
+      }
+    );
+  }
+
+}
+
+
+allclass are export - with out this key word class will not imported other modules
+DOM - document object module
+{{}}- Interpollation wil wrk right to left will do 3 ways - {{}}, [value], bind-value - source to view
+
+on-click java script, (click) - will not user alert, document.getele,emnt
+$event is object, if you want value - event.target.value 
+(input) - text box value change event
+
+
+*ngIf - it will add and remove the element from the dom
+
+
+
+Pips:  {{date | date:fulldate}}, {{string:uppercase}}, datepipe,currencypipe, stringPipe
+creating custom pipe:
+ng g p myapp  --  implements PipeTransform, ovverride transform method, 
+@Pipe({
+  name: 'myapp'
+})
+
+
+
+https://www.angularjswiki.com/angular/angular-currency-pipe-formatting-currency-in-angular/
+
+
+
+
+
+Component : @Component - selector
+service : @Inject - 
+@Injectable({
+  providedIn: 'root'
+})
+  
+
+@Directive({
+  selector: '[appSize]'
+})
+
+Getinput values:
+
+
+<input type="text" #my (input)="0">// with out event angular will not bind the value, so we use one dummy event to bind the data to my value
+
+{{my.value}}
+
+input type="text" (keyup.enter)="readVal($event)">-- event trigger when enter click
+
+Reactive forms:
+
+Add reactive from moudle in main moudule.
+add formcontroler commponent into user component form controler will work for one field, if we want work for multipule form fields , we can we formgroup when we user formgrou we will 
+user " formcontrolerName" = json values matches
+
+when we use  formgroups thins, we user HTML forms and form name should same as formgroup name in ts, when you click submit, event trriger and fromgroup will listen the eventand 
+and emit the ngsubmit event 
+nested forms: fromgroup having formgroup inside
+
+
+    <p>
+        First  Name : <input type='text' formControlName="firstName">
+    </p>
+    <p>
+        Last  Name : <input type='text' formControlName="lastName">
+    </p>
+    <div formGroupName="address">
+
+        city :<input type="text" formControlName="city">
+        state:<input type="text" formControlName="state">
+        country:<input type="text" formControlName="country">
+
+    </div>
+    <button type="submit"> submit</button>
+
+</form>
+
+
+addvlaue for formGroup we can use 2 methhod 
+set will expect hole object, and patchValue(), will update pertially 
+systax:
+setValue({
+name:'',
+lastname:''
+});
+
+patchValue({
+lastname:''
+});
